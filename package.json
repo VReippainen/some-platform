@@ -1,0 +1,27 @@
+{
+  "name": "social-platform",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "pnpm --filter @social-platform/api start",
+    "dev": "pnpm --filter @social-platform/api dev",
+    "build": "pnpm --filter @social-platform/api build",
+    "test": "pnpm --filter @social-platform/api test"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.15.0",
+    "@typescript-eslint/parser": "^6.15.0",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "prettier": "^3.1.1",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.8.2",
+    "prisma": "^6.8.2"
+  }
+}
