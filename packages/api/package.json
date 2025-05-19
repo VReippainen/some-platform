@@ -8,7 +8,7 @@
     "dev": "tsx watch src/index.ts",
     "dev:node": "node --loader ts-node/esm src/index.ts",
     "build": "tsc",
-    "test": "jest",
+    "test": "vitest",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "swagger:generate": "tsx src/config/swagger-autogen.ts"
@@ -24,6 +24,7 @@
     "prisma": "^6.8.2",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
+    "vitest": "^3.1.4",
     "winston": "^3.11.0"
   },
   "devDependencies": {
