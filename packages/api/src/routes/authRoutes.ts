@@ -4,7 +4,6 @@ import { authenticate } from '../middleware/authMiddleware';
 import { AppError } from '../middleware/errorHandler';
 import UserModel from '../db/models/User';
 import { BaseResponse, TokenResponse, UserResponse } from '@social-platform/shared';
-import '../types/express';
 
 const router = express.Router();
 
