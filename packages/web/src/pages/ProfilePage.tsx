@@ -17,7 +17,7 @@ export function ProfilePage() {
       {/* Back button */}
       <button
         onClick={() => {
-          navigate(-1);
+          void navigate(-1);
         }}
         className="mb-4 flex items-center text-gray-600 hover:text-gray-800"
       >
