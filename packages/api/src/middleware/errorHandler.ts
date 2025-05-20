@@ -15,33 +15,36 @@ export class AppError extends Error {
 export const errorHandler = (
   err: Error | AppError,
   _0: Request,
-  res: Response
-) => {
+  res: Response,
+): void => {
   if (err instanceof AppError) {
-    return res.status(err.statusCode).json({
+    res.status(err.statusCode).json({
       status: 'error',
       message: err.message
     });
+    return;
   }
 
   // Handle JWT errors
   if (err.name === 'JsonWebTokenError') {
-    return res.status(401).json({
+    res.status(401).json({
       status: 'error',
       message: 'Invalid token. Please log in again!'
     });
+    return;
   }
 
   if (err.name === 'TokenExpiredError') {
-    return res.status(401).json({
+    res.status(401).json({
       status: 'error',
       message: 'Your token has expired. Please log in again!'
     });
+    return;
   }
 
   // Default to 500 server error
   console.error('ERROR 💥', err);
-  return res.status(500).json({
+  res.status(500).json({
     status: 'error',
     message: 'Something went wrong!'
   });

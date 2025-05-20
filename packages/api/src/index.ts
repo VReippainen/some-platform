@@ -7,6 +7,7 @@ import swaggerSpec from './config/swagger';
 import { errorHandler } from './middleware/errorHandler';
 import authRoutes from './routes/authRoutes';
 import userRoutes from './routes/userRoutes';
+import type { ErrorRequestHandler } from 'express';
 
 async function startServer() {
   // Create Express application
@@ -54,7 +55,7 @@ async function startServer() {
   });
   
   // Error handling middleware
-  app.use(errorHandler);
+  app.use(errorHandler as ErrorRequestHandler);
   
   // Create HTTP server
   const httpServer = http.createServer(app);

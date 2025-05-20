@@ -1,0 +1,42 @@
+name: Build & Test API
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Read Node.js version from .nvmrc
+        id: nvmrc
+        run: echo "NODE_VERSION=$(cat .nvmrc)" >> $GITHUB_ENV
+      - name: Use Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Install pnpm
+        run: corepack enable && corepack prepare pnpm@8.15.5 --activate
+      - name: Install dependencies
+        run: pnpm install
+      - name: Generate Prisma Client
+        run: pnpm exec prisma generate
+        working-directory: packages/api
+      - name: Build shared types
+        run: pnpm run build
+        working-directory: packages/shared
+      - name: Build API
+        run: pnpm run build
+        working-directory: packages/api
+      - name: Lint
+        run: pnpm run lint
+        working-directory: packages/api
+      - name: Test
+        run: pnpm run test
+        working-directory: packages/api 

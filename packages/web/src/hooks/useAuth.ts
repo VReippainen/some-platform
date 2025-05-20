@@ -41,7 +41,7 @@ export const useLogin = () => {
       // Invalidate any user-related queries
       await queryClient.invalidateQueries({ queryKey: ['currentUser'] });
       // Navigate to profile page
-      navigate(`/profile/${user.id}`);
+      void navigate(`/profile/${user.id}`);
     },
   });
 };
@@ -64,7 +64,7 @@ export const useRegister = () => {
       // Invalidate any user-related queries
       await queryClient.invalidateQueries({ queryKey: ['currentUser'] });
       // Navigate to profile page
-      navigate(`/profile/${user.id}`);
+      void navigate(`/profile/${user.id}`);
     },
   });
 };
@@ -82,7 +82,7 @@ export const useLogout = () => {
       // Clear the user from the cache
       queryClient.removeQueries({ queryKey: ['currentUser'] });
       // Navigate to login page
-      navigate('/login');
+      void navigate('/login');
     },
   });
 };
