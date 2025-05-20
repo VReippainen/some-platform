@@ -16,6 +16,14 @@ const profileService = {
     const response = await get<ProfileResponse>(`/profiles/${id}`);
     return response.data;
   },
+
+  /**
+   * Search profiles by username (partial match)
+   */
+  searchProfiles: async (query: string) => {
+    const response = await get<ProfilesResponse>('/profiles/search', { q: query });
+    return response.data;
+  },
 };
 
 export default profileService;
