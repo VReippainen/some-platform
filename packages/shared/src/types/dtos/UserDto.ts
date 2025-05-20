@@ -1,9 +1,6 @@
-export interface UpdateUserDto {
+export interface RegisterUserDto {
   bio?: string;
   genderOther?: string;
-}
-
-export interface CreateUserDto extends UpdateUserDto {
   username: string;
   email: string;
   password: string;
@@ -12,11 +9,7 @@ export interface CreateUserDto extends UpdateUserDto {
 
 export interface UserDto {
   id: string;
-  username: string;
   email: string;
-  bio: string | null;
-  gender: 'male' | 'female' | 'other';
-  genderOther: string | null;
   createdAt: Date;
   updatedAt: Date | null;
 }

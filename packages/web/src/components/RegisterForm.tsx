@@ -7,7 +7,7 @@ import Button from './Button';
 
 type Gender = 'male' | 'female' | 'other';
 
-function SignUpForm() {
+export function RegisterForm() {
   const register = useRegister();
 
   const [username, setUsername] = useState<string>('');
@@ -25,11 +25,11 @@ function SignUpForm() {
 
     // Basic validation
     if (
-      username.length &&
-      email.length &&
-      password.length &&
-      confirmPassword.length &&
-      gender.length
+      !username.length ||
+      !email.length ||
+      !password.length ||
+      !confirmPassword.length ||
+      !gender.length
     ) {
       setLocalError('Please fill in all fields');
       return;
@@ -120,7 +120,6 @@ function SignUpForm() {
           label="Bio"
           id="bio"
           type="text"
-          required
           value={bio}
           onChange={(e: ChangeEvent<HTMLInputElement>) => {
             setBio(e.target.value);
@@ -174,5 +173,3 @@ function SignUpForm() {
     </form>
   );
 }
-
-export default SignUpForm;

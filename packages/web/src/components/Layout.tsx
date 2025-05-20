@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
-import { useCurrentUser, useLogout } from '../hooks/useAuth';
+import { useCurrentProfile } from '../hooks/useProfile';
+import { useLogout } from '../hooks/useAuth';
 import {
   BellIcon,
   UserIcon,
@@ -10,7 +11,7 @@ import {
 } from '@heroicons/react/24/outline';
 
 function Layout() {
-  const { data: user } = useCurrentUser();
+  const { data: profile } = useCurrentProfile();
   const logout = useLogout();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -28,7 +29,7 @@ function Layout() {
 
   const navLinks = [
     {
-      path: user ? `/profile/${user.id}` : '/profile',
+      path: profile ? `/profile/${profile.id}` : '/profile',
       icon: UserIcon,
       text: 'Profile',
     },

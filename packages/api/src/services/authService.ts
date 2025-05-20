@@ -1,7 +1,8 @@
 import jwt from 'jsonwebtoken';
 import UserModel from '../db/models/User';
+import ProfileModel from '../db/models/Profile';
 import config from '../config/config';
-import { CreateUserDto, TokenDto, UserDto } from '@social-platform/shared';
+import { RegisterUserDto, TokenDto, UserDto } from '@social-platform/shared';
 
 class AuthenticationError extends Error {
   constructor(message: string) {
@@ -20,7 +21,7 @@ interface RegisterInput {
 }
 
 interface LoginInput {
-  username: string;
+  email: string;
   password: string;
 }
 
@@ -29,7 +30,7 @@ class AuthService {
   private generateToken(user: UserDto): string {
     const payload = {
       userId: user.id,
-      username: user.username,
+      email: user.email,
     };
 
     // Type assertion to bypass type checking issues
@@ -43,20 +44,21 @@ class AuthService {
 
   // Register a new user
   async register(input: RegisterInput): Promise<TokenDto> {
+     // Check if email is already registered
+     const existingEmail = await UserModel.findByEmail(input.email);
+     if (existingEmail) {
+       throw new AuthenticationError('Email is already registered');
+     }
     // Check if username is already taken
-    const existingUsername = await UserModel.findByUsername(input.username);
+    const existingUsername = await ProfileModel.findByUsername(input.username);
     if (existingUsername) {
       throw new AuthenticationError('Username is already taken');
     }
 
-    // Check if email is already registered
-    const existingEmail = await UserModel.findByEmail(input.email);
-    if (existingEmail) {
-      throw new AuthenticationError('Email is already registered');
-    }
+   
 
     // Create new user
-    const userData: CreateUserDto = {
+    const userData: RegisterUserDto = {
       username: input.username,
       email: input.email,
       password: input.password,
@@ -66,6 +68,7 @@ class AuthService {
     };
 
     const user = await UserModel.create(userData);
+    await ProfileModel.create(userData, user);
     const token = this.generateToken(user);
     
 
@@ -78,7 +81,7 @@ class AuthService {
   async login(input: LoginInput): Promise<TokenDto> {
     // Verify password
     const isPasswordValid = await UserModel.verifyPassword(
-      input.username,
+      input.email,
       input.password
     );
 
@@ -86,7 +89,7 @@ class AuthService {
       throw new AuthenticationError('Invalid username or password');
     }
 
-    const user = await UserModel.findByUsername(input.username);
+    const user = await UserModel.findByEmail(input.email);
     if (!user) {
       throw new AuthenticationError('User not found');
     }

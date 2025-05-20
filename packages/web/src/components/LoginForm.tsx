@@ -7,19 +7,19 @@ import { ErrorMessage } from './ErrorMessage';
 
 function LoginForm() {
   const login = useLogin();
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [localError, setLocalError] = useState<string | null>(null);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setLocalError(null);
-    if (!username || !password) {
+    if (!email || !password) {
       setLocalError('Please fill in all fields');
       return;
     }
     try {
-      await login.mutateAsync({ username, password });
+      await login.mutateAsync({ email, password });
     } catch (err) {
       if (err instanceof Error) {
         setLocalError(err.message);
@@ -33,15 +33,15 @@ function LoginForm() {
     <form className="mt-8 space-y-6" onSubmit={(e) => void handleSubmit(e)}>
       <div className="space-y-4 rounded-md shadow-sm">
         <LabeledInput
-          label="Username"
-          id="username"
-          type="username"
-          autoComplete="username"
-          value={username}
+          label="Email"
+          id="email"
+          type="email"
+          autoComplete="email"
+          value={email}
           onChange={(e: ChangeEvent<HTMLInputElement>) => {
-            setUsername(e.target.value);
+            setEmail(e.target.value);
           }}
-          placeholder="Username"
+          placeholder="Email"
         />
         <LabeledInput
           label="Password"

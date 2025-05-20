@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { SignUpForm } from '../components';
+import { RegisterForm } from '../components/RegisterForm';
 
 export function RegisterPage() {
   return (
@@ -16,7 +16,7 @@ export function RegisterPage() {
             </Link>
           </p>
         </div>
-        <SignUpForm />
+        <RegisterForm />
       </div>
     </div>
   );

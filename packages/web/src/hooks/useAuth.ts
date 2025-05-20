@@ -1,26 +1,9 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import type { LoginInput } from '../types/auth';
 import authService from '../services/authService';
-import type { CreateUserDto, UpdateUserDto } from '@social-platform/shared';
-
-/**
- * Hook to get the current user
- */
-export const useCurrentUser = () => {
-  const query = useQuery({
-    queryKey: ['currentUser'],
-    queryFn: () => authService.getCurrentUser(),
-    retry: false,
-    staleTime: 5 * 60 * 1000, // 5 minutes
-    enabled: authService.isAuthenticated(),
-  });
-  return {
-    data: query.data,
-    isLoading: query.isLoading,
-    error: query.error,
-  };
-};
+import type { RegisterUserDto } from '@social-platform/shared';
+import { useCurrentProfile } from './useProfile';
 
 /**
  * Hook to login a user
@@ -32,8 +15,8 @@ export const useLogin = () => {
   return useMutation({
     mutationFn: async (data: LoginInput) => {
       await authService.login(data);
-      const user = await authService.getCurrentUser();
-      return user;
+      const profile = await authService.getCurrentProfile();
+      return profile;
     },
     onSuccess: async (user) => {
       // Update the current user in the cache
@@ -54,17 +37,17 @@ export const useRegister = () => {
   const navigate = useNavigate();
 
   return useMutation({
-    mutationFn: async (data: CreateUserDto) => {
-      await authService.pxregister(data);
-      return authService.getCurrentUser();
+    mutationFn: async (data: RegisterUserDto) => {
+      await authService.register(data);
+      return authService.getCurrentProfile();
     },
-    onSuccess: async (user) => {
+    onSuccess: async (profile) => {
       // Update the current user in the cache
-      queryClient.setQueryData(['currentUser'], user);
+      queryClient.setQueryData(['currentProfile'], profile);
       // Invalidate any user-related queries
-      await queryClient.invalidateQueries({ queryKey: ['currentUser'] });
+      await queryClient.invalidateQueries({ queryKey: ['currentProfile'] });
       // Navigate to profile page
-      void navigate(`/profile/${user.id}`);
+      void navigate(`/profile/${profile.id}`);
     },
   });
 };
@@ -88,49 +71,13 @@ export const useLogout = () => {
 };
 
 /**
- * Hook to get a user by ID
- */
-export const useUserById = (id: string) => {
-  const query = useQuery({
-    queryKey: ['user', id],
-    queryFn: () => authService.getUserById(id),
-    enabled: !!id,
-  });
-  return {
-    data: query.data,
-    isLoading: query.isLoading,
-    error: query.error,
-  };
-};
-
-/**
- * Hook to update a user profile
- */
-export const useUpdateProfile = () => {
-  const queryClient = useQueryClient();
-
-  return useMutation({
-    mutationFn: (data: UpdateUserDto) => authService.updateProfile(data),
-    onSuccess: async (updatedUser) => {
-      // Update the current user in the cache
-      queryClient.setQueryData(['currentUser'], updatedUser);
-      // Update the user data in the cache
-      queryClient.setQueryData(['user', updatedUser.id], updatedUser);
-      // Invalidate queries
-      await queryClient.invalidateQueries({ queryKey: ['currentUser'] });
-      await queryClient.invalidateQueries({ queryKey: ['user', updatedUser.id] });
-    },
-  });
-};
-
-/**
  * Helper hook to check if a user is authenticated
  */
 export const useIsAuthenticated = () => {
-  const { data: user, isLoading } = useCurrentUser();
+  const { data: profile, isLoading } = useCurrentProfile();
   return {
-    isAuthenticated: !!user,
+    isAuthenticated: !!profile,
     isLoading,
-    user,
+    profile,
   };
 };

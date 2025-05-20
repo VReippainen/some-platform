@@ -25,8 +25,8 @@
       "description": "Authentication related operations"
     },
     {
-      "name": "Users",
-      "description": "User management operations"
+      "name": "Profiles",
+      "description": "Profile management operations"
     }
   ],
   "paths": {
@@ -89,71 +89,10 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "username": {
+                  "email": {
                     "example": "any"
                   },
                   "password": {
-                    "example": "any"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/auth/me": {
-      "get": {
-        "tags": [
-          "Authentication"
-        ],
-        "description": "",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/auth/profile": {
-      "patch": {
-        "tags": [
-          "Authentication"
-        ],
-        "description": "",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "bio": {
-                    "example": "any"
-                  },
-                  "genderOther": {
                     "example": "any"
                   }
                 }
@@ -185,10 +124,10 @@
         }
       }
     },
-    "/users/search": {
+    "/profiles/search": {
       "get": {
         "tags": [
-          "Users"
+          "Profiles"
         ],
         "description": "",
         "parameters": [
@@ -214,10 +153,32 @@
         }
       }
     },
-    "/users/{id}": {
+    "/profiles/me": {
       "get": {
         "tags": [
-          "Users"
+          "Profiles"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/profiles/{id}": {
+      "get": {
+        "tags": [
+          "Profiles"
         ],
         "description": "",
         "parameters": [

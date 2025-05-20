@@ -6,7 +6,7 @@ import config from './config/config';
 import swaggerSpec from './config/swagger';
 import { errorHandler } from './middleware/errorHandler';
 import authRoutes from './routes/authRoutes';
-import userRoutes from './routes/userRoutes';
+import profileRoutes from './routes/profileRoutes';
 import type { ErrorRequestHandler } from 'express';
 
 async function startServer() {
@@ -45,7 +45,7 @@ async function startServer() {
   const router = express.Router();
 
   router.use('/auth', authRoutes);
-  router.use('/users', userRoutes);
+  router.use('/profiles', profileRoutes);
 
   app.use('/', router);
 

@@ -1,16 +1,16 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeftIcon, PencilIcon } from '@heroicons/react/24/outline';
-import { useUserById, useCurrentUser } from '../hooks/useAuth';
+import { useCurrentProfile, useProfileById } from '../hooks/useProfile';
 
 export function ProfilePage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { data: currentUser } = useCurrentUser();
+  const { data: currentProfile } = useCurrentProfile();
   // Check if profile is the current user's profile
-  const isCurrentUser = currentUser?.id === id;
+  const isCurrentUser = currentProfile?.id === id;
 
   // Fetch user profile
-  const { data: user, isLoading, error } = useUserById(id ?? '');
+  const { data: profile, isLoading, error } = useProfileById(id ?? '');
 
   return (
     <div>
@@ -36,7 +36,7 @@ export function ProfilePage() {
             Failed to load profile. Please try again later.
           </div>
         </div>
-      ) : user ? (
+      ) : profile ? (
         <div>
           {/* Profile header */}
           <div className="mb-6 overflow-hidden rounded-lg bg-white shadow">
@@ -45,15 +45,14 @@ export function ProfilePage() {
               <div className="absolute -mt-16 flex">
                 <div className="flex">
                   <div className="flex h-24 w-24 items-center justify-center rounded-full border-4 border-white bg-blue-500 text-2xl font-bold text-white">
-                    {user.username[0].toUpperCase()}
+                    {profile.username[0].toUpperCase()}
                   </div>
                 </div>
               </div>
               <div className="mt-6 flex items-center justify-between">
                 <div>
-                  <h2 className="text-2xl font-bold text-gray-900">{user.username}</h2>
-                  {isCurrentUser && <p className="text-sm text-gray-500">{user.email}</p>}
-                  {user.bio && <p className="mt-2 text-gray-700">{user.bio}</p>}
+                  <h2 className="text-2xl font-bold text-gray-900">{profile.username}</h2>
+                  {profile.bio && <p className="mt-2 text-gray-700">{profile.bio}</p>}
                 </div>
                 {isCurrentUser && (
                   <button className="flex items-center rounded-md bg-white px-3 py-2 text-sm font-medium text-gray-700 shadow-sm ring-1 ring-gray-300 hover:bg-gray-50">
@@ -67,7 +66,7 @@ export function ProfilePage() {
         </div>
       ) : (
         <div className="rounded-md bg-gray-50 py-8 text-center">
-          <p className="text-gray-500">User not found.</p>
+          <p className="text-gray-500">Profile not found.</p>
         </div>
       )}
     </div>

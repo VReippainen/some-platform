@@ -29,8 +29,8 @@ const doc = {
       description: 'Authentication related operations'
     },
     {
-      name: 'Users',
-      description: 'User management operations'
+      name: 'Profiles',
+      description: 'Profile management operations'
     },
    /* {
       name: 'Posts',
@@ -77,7 +77,7 @@ const doc = {
 const outputFile = path.resolve(__dirname, 'swagger-output.json');
 const routeFiles = [
   path.resolve(__dirname, '../routes/authRoutes.ts'),
-  path.resolve(__dirname, '../routes/userRoutes.ts'),
+  path.resolve(__dirname, '../routes/profileRoutes.ts'),
   /*path.resolve(__dirname, '../routes/postRoutes.ts'),
   path.resolve(__dirname, '../routes/commentRoutes.ts'),
   path.resolve(__dirname, '../routes/messageRoutes.ts'),

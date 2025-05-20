@@ -1,11 +1,11 @@
-import { get, patch, post } from './apiClient';
+import { get, post } from './apiClient';
 import type { LoginInput } from '../types/auth';
 import {
+  ProfileResponse,
+  ProfilesResponse,
   TokenResponse,
-  UserResponse,
-  type CreateUserDto,
-  type UpdateUserDto,
-  type UserDto,
+  type ProfileDto,
+  type RegisterUserDto,
 } from '@social-platform/shared';
 import { logger } from '../utils/logger';
 const authService = {
@@ -22,7 +22,7 @@ const authService = {
   /**
    * Register a new user
    */
-  pxregister: async (data: CreateUserDto): Promise<void> => {
+  register: async (data: RegisterUserDto): Promise<void> => {
     const response = await post<TokenResponse>('/auth/register', data);
     const { token } = response.data;
 
@@ -31,27 +31,19 @@ const authService = {
   },
 
   /**
-   * Get current user data
+   * Get current profile data
    */
-  getCurrentUser: async (): Promise<UserDto> => {
-    const response = await get<UserResponse>('/auth/me');
+  getCurrentProfile: async (): Promise<ProfileDto> => {
+    const response = await get<ProfilesResponse>('/profiles/me');
     return response.data[0];
   },
 
   /**
-   * Update user profile
+   * Get profile by ID
    */
-  updateProfile: async (data: UpdateUserDto): Promise<UserDto> => {
-    const response = await patch<UserResponse>('/auth/profile', data);
-    return response.data[0];
-  },
-
-  /**
-   * Get user by ID
-   */
-  getUserById: async (id: string): Promise<UserDto> => {
-    const response = await get<UserResponse>(`/users/${id}`);
-    return response.data[0];
+  getProfileById: async (id: string): Promise<ProfileDto> => {
+    const response = await get<ProfileResponse>(`/profiles/${id}`);
+    return response.data;
   },
 
   /**

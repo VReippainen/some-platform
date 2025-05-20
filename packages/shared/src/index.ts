@@ -1,15 +1,21 @@
 import { TokenDto } from './types/dtos/TokenDto';
-import { CreateUserDto, UpdateUserDto, UserDto } from './types/dtos/UserDto';
+import { RegisterUserDto, UserDto } from './types/dtos/UserDto';
 import { BaseResponse } from './types/responses/BaseResponse';
 import { TokenResponse } from './types/responses/TokenResponse';
-import { UserResponse } from './types/responses/UserResponse';
+import { ProfilesResponse } from './types/responses/ProfilesResponse';
+import { ProfileResponse } from './types/responses/ProfileResponse';
+import { ProfileDto } from './types/dtos/ProfileDto';
+import { UpdateProfileDto } from './types/dtos/ProfileDto';
+
 
 export {
-  CreateUserDto,
-  UpdateUserDto,
+  RegisterUserDto,
+  UpdateProfileDto,
   UserDto,
-  UserResponse,
+  ProfilesResponse,
+  ProfileResponse,
   BaseResponse,
   TokenDto,
-  TokenResponse
+  TokenResponse,
+  ProfileDto,
 };

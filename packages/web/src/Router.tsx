@@ -6,11 +6,10 @@ import { ProfilePage } from './pages/ProfilePage';
 import { NotFoundPage } from './pages/NotFoundPage';
 import ProtectedRoute from './components/ProtectedRoute';
 import React from 'react';
-import { useCurrentUser } from './hooks/useAuth';
-
+import { useCurrentProfile } from './hooks/useProfile';
 function Router(): React.ReactElement {
-  const { data: currentUser } = useCurrentUser();
-  const userId = currentUser?.id;
+  const { data: currentProfile } = useCurrentProfile();
+  const profileId = currentProfile?.id;
 
   return (
     <Routes>
@@ -28,7 +27,7 @@ function Router(): React.ReactElement {
         }
       >
         <Route index element={<Navigate to="/profile" replace />} />
-        <Route path="profile" element={<Navigate to={`/profile/${userId ?? ''}`} replace />} />
+        <Route path="profile" element={<Navigate to={`/profile/${profileId ?? ''}`} replace />} />
         <Route path="profile/:id" element={<ProfilePage />} />
       </Route>
 
