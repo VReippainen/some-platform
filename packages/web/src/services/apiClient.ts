@@ -48,4 +48,12 @@ export async function patch<T>(url: string, data?: unknown): Promise<T> {
   return response.data;
 }
 
+/**
+ * Generic DELETE request helper
+ */
+export async function remove<T = void>(url: string): Promise<T> {
+  const response = await apiClient.delete<T>(url);
+  return response.data;
+}
+
 export default apiClient;

@@ -5,6 +5,7 @@ import Button from '../components/Button/Button';
 import LoadingSpinner from '../components/LoadingSpinner/LoadingSpinner';
 import { ErrorMessage } from '../components/ErrorMessage';
 import ProfileHeader from '../components/ProfileHeader/ProfileHeader';
+import { UserPostsSection } from '../components/UserPostsSection';
 
 export function ProfilePage() {
   const { id } = useParams<{ id: string }>();
@@ -37,13 +38,14 @@ export function ProfilePage() {
       ) : error ? (
         <ErrorMessage message="Failed to load profile. Please try again later." />
       ) : profile ? (
-        <div>
+        <>
           <ProfileHeader
             profile={profile}
             isCurrentUser={isCurrentUser}
             onEditClick={handleEditProfile}
           />
-        </div>
+          <UserPostsSection profileId={profile.id} profile={profile} />
+        </>
       ) : (
         <ErrorMessage message="Profile not found." />
       )}

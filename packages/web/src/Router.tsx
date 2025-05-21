@@ -8,6 +8,8 @@ import ProtectedRoute from './components/ProtectedRoute';
 import React from 'react';
 import { useCurrentProfile } from './hooks/useProfile';
 import { ProfileSearchPage } from './pages/ProfileSearchPage';
+import { PostNewPage } from './pages/PostNewPage';
+
 function Router(): React.ReactElement {
   const { data: currentProfile } = useCurrentProfile();
   const profileId = currentProfile?.id;
@@ -31,6 +33,7 @@ function Router(): React.ReactElement {
         <Route path="profiles" element={<Navigate to={`/profiles/${profileId ?? ''}`} replace />} />
         <Route path="profiles/search" element={<ProfileSearchPage />} />
         <Route path="profiles/:id" element={<ProfilePage />} />
+        <Route path="posts/new" element={<PostNewPage />} />
       </Route>
 
       {/* 404 route */}
