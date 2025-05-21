@@ -31,6 +31,10 @@
     {
       "name": "Posts",
       "description": "Post operations"
+    },
+    {
+      "name": "Feed",
+      "description": "Feed operations"
     }
   ],
   "paths": {
@@ -353,6 +357,38 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/feed": {
+      "get": {
+        "tags": [
+          "Feed"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "profileId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
           }
         }
       }

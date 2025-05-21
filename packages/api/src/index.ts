@@ -8,6 +8,7 @@ import { errorHandler } from './middleware/errorHandler';
 import authRoutes from './routes/authRoutes';
 import profileRoutes from './routes/profileRoutes';
 import postRoutes from './routes/postRoutes';
+import feedRoutes from './routes/feedRoutes';
 import type { ErrorRequestHandler } from 'express';
 
 async function startServer() {
@@ -48,6 +49,7 @@ async function startServer() {
   router.use('/auth', authRoutes);
   router.use('/profiles', profileRoutes);
   router.use('/posts', postRoutes);
+  router.use('/feed', feedRoutes);
   app.use('/', router);
 
   // Add a health check endpoint

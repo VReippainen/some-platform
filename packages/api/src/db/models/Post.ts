@@ -45,6 +45,11 @@ class PostModel {
   async delete(id: string): Promise<void> {
     await prisma.post.delete({ where: { id } });
   }
+
+  async getAllPosts(): Promise<PostDto[]> {
+    const posts = await prisma.post.findMany();
+    return posts.map(this.toPost);
+  }
 }
 
 export default new PostModel(); 
