@@ -30,10 +30,20 @@ model Profile {
   createdAt   DateTime  @default(now()) @map("created_at")
   updatedAt   DateTime? @map("updated_at")
   user        User      @relation(fields: [userId], references: [id])
+  posts       Post[]
 }
 
 enum Gender {
   male
   female
   other
+}
+
+model Post {
+  id            String    @id @default(uuid())
+  profileId     String
+  content       String
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime? @map("updated_at")
+  profile       Profile   @relation(fields: [profileId], references: [id])
 }

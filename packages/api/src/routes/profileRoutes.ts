@@ -8,10 +8,11 @@ const router = express.Router();
 
 // Search profiles
 router.get('/search', authenticate, async (req, res, next) => {
+  /*
+    #swagger.tags = ['Profiles']
+    #swagger.path = '/profiles/search'
+  */
   try {
-    // #swagger.tags = ['Profiles']
-    // #swagger.path = '/profiles/search'
-   
     const query = req.query.q as string;
     
     if (!query) {
@@ -29,9 +30,11 @@ router.get('/search', authenticate, async (req, res, next) => {
 
 
 router.get('/me', authenticate, async (req: Request, res, next) => {
-  // #swagger.tags = ['Profiles']
-  // #swagger.path = '/profiles/me'
-  try {
+  /*
+    #swagger.tags = ['Profiles']
+    #swagger.path = '/profiles/me'
+  */
+  try { 
     const profiles = await ProfileModel.findByUserId(req.user!.id);
     if (profiles == null || profiles.length === 0) {
       throw new AppError('Profile not found', 404);
@@ -46,9 +49,10 @@ router.get('/me', authenticate, async (req: Request, res, next) => {
 // Get profile by ID
 router.get('/:id', async (req, res, next) => {
   try {
-    // #swagger.tags = ['Profiles']
-    // #swagger.path = '/profiles/{id}'
-    
+    /*
+      #swagger.tags = ['Profiles']
+      #swagger.path = '/profiles/{id}'
+    */
     const profileId = req.params.id;
     
     const profile = await ProfileModel.findById(profileId);

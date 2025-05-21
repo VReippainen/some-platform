@@ -6,6 +6,7 @@ import { ProfilesResponse } from './types/responses/ProfilesResponse';
 import { ProfileResponse } from './types/responses/ProfileResponse';
 import { ProfileDto } from './types/dtos/ProfileDto';
 import { UpdateProfileDto } from './types/dtos/ProfileDto';
+import { PostDto } from './types/dtos/PostDto';
 
 
 export {
@@ -18,4 +19,5 @@ export {
   TokenDto,
   TokenResponse,
   ProfileDto,
+  PostDto,
 };
