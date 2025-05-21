@@ -8,6 +8,8 @@ import {
   Bars3Icon,
   XMarkIcon,
   ArrowRightCircleIcon,
+  HomeIcon,
+  MagnifyingGlassIcon,
 } from '@heroicons/react/24/outline';
 
 function Layout() {
@@ -29,9 +31,19 @@ function Layout() {
 
   const navLinks = [
     {
+      path: '/',
+      icon: HomeIcon,
+      text: 'Home',
+    },
+    {
       path: profile ? `/profiles/${profile.id}` : '/profiles',
       icon: UserIcon,
       text: 'Profile',
+    },
+    {
+      path: '/profiles/search',
+      icon: MagnifyingGlassIcon,
+      text: 'Search',
     },
   ];
 
