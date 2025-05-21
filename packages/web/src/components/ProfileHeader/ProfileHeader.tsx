@@ -2,6 +2,7 @@ import { PencilIcon } from '@heroicons/react/24/outline';
 import Button from '../Button/Button';
 import type { ProfileDto } from '@social-platform/shared';
 import GenderIndicator from '../ProfileCard/GenderIndicator';
+import { getAvatarUrl } from '../../utils/getAvatarUrl';
 
 interface ProfileHeaderProps {
   profile: ProfileDto;
@@ -25,7 +26,7 @@ function ProfileHeader({
         <div className="absolute -mt-16 flex">
           <div className="flex">
             <img
-              src={`https://api.dicebear.com/7.x/identicon/svg?seed=${profile.username}`}
+              src={getAvatarUrl(profile.username)}
               alt={`${profile.username} avatar`}
               className="h-24 w-24 rounded-full border-4 border-gray-900 bg-gray-800"
             />

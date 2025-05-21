@@ -9,6 +9,7 @@ import React from 'react';
 import { useCurrentProfile } from './hooks/useProfile';
 import { ProfileSearchPage } from './pages/ProfileSearchPage';
 import { PostNewPage } from './pages/PostNewPage';
+import { FeedPage } from './pages/FeedPage';
 
 function Router(): React.ReactElement {
   const { data: currentProfile } = useCurrentProfile();
@@ -16,9 +17,12 @@ function Router(): React.ReactElement {
 
   return (
     <Routes>
-      {/* Public routes */}
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/register" element={<RegisterPage />} />
+      {/* Public routes, only show if not logged in */}
+
+      <>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+      </>
 
       {/* Protected routes */}
       <Route
@@ -29,7 +33,7 @@ function Router(): React.ReactElement {
           </ProtectedRoute>
         }
       >
-        <Route index element={<Navigate to="/profiles" replace />} />
+        <Route index element={<FeedPage />} />
         <Route path="profiles" element={<Navigate to={`/profiles/${profileId ?? ''}`} replace />} />
         <Route path="profiles/search" element={<ProfileSearchPage />} />
         <Route path="profiles/:id" element={<ProfilePage />} />

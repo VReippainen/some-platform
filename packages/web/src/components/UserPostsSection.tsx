@@ -3,6 +3,7 @@ import LoadingSpinner from './LoadingSpinner/LoadingSpinner';
 import { ErrorMessage } from './ErrorMessage';
 import PostCard from './PostCard/PostCard';
 import type { ProfileDto } from '@social-platform/shared';
+import { getAvatarUrl } from '../utils/getAvatarUrl';
 
 interface UserPostsSectionProps {
   profileId: string;
@@ -30,7 +31,7 @@ export function UserPostsSection({ profileId, profile }: UserPostsSectionProps) 
           <PostCard
             key={post.id}
             username={profile.username}
-            avatarUrl={`https://api.dicebear.com/7.x/identicon/svg?seed=${profile.username}`}
+            avatarUrl={getAvatarUrl(profile.username)}
             content={post.content}
             timestamp={new Date(post.createdAt).toLocaleString()}
           />

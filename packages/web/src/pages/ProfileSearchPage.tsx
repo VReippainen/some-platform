@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSearchProfiles, useCurrentProfile } from '../hooks/useProfile';
 import type { ProfileDto } from '@social-platform/shared';
 import ProfileCard from '../components/ProfileCard/ProfileCard';
+import { getAvatarUrl } from '../utils/getAvatarUrl';
 
 export function ProfileSearchPage() {
   const [query, setQuery] = useState('');
@@ -59,7 +60,7 @@ export function ProfileSearchPage() {
             >
               <ProfileCard
                 username={profile.username}
-                avatarUrl={`https://api.dicebear.com/7.x/identicon/svg?seed=${profile.username}`}
+                avatarUrl={getAvatarUrl(profile.username)}
                 gender={getGender(profile)}
               />
             </div>
