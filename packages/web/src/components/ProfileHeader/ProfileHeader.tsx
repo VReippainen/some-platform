@@ -33,9 +33,15 @@ function ProfileHeader({
         </div>
         <div className="mt-6 flex items-center justify-between">
           <div>
-            <h2 className="text-2xl font-bold text-gray-100">
-              {profile.username} {<GenderIndicator gender={profile.gender} />}
-            </h2>
+            <div className="flex items-center gap-2">
+              <h2 className="text-2xl font-bold text-gray-100 m-0 flex items-center">
+                {profile.username}
+              </h2>
+              <GenderIndicator gender={profile.gender} />
+              {profile.genderOther && (
+                <span className="text-gray-400 text-sm">({profile.genderOther})</span>
+              )}
+            </div>
             {profile.bio && <p className="mt-2 text-gray-300">{profile.bio}</p>}
           </div>
           {isCurrentUser && (
