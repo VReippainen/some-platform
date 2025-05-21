@@ -39,8 +39,7 @@ export function ProfilePage() {
       ) : profile ? (
         <div>
           <ProfileHeader
-            username={profile.username}
-            bio={profile.bio ?? undefined}
+            profile={profile}
             isCurrentUser={isCurrentUser}
             onEditClick={handleEditProfile}
           />

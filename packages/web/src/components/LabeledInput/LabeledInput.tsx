@@ -14,7 +14,7 @@ export function LabeledInput(props: LabeledInputProps) {
       <input
         {...rest}
         id={id}
-        className={`relative block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm ${className}`}
+        className={`relative block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 text-white placeholder-gray-500 focus:z-10 focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm ${className}`}
       />
     </div>
   );

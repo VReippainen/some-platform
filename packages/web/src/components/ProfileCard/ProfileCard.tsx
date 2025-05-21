@@ -9,7 +9,7 @@ const getImageBorder = (gender: string) => {
   if (gender === 'female') {
     return 'border-2 border-pink-500';
   }
-  if (gender === 'other') {
+  if (gender != '') {
     return 'border-2 border-purple-700';
   }
   return 'border-2 border-gray-700';

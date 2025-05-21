@@ -48,7 +48,7 @@ export function ProfileSearchPage() {
           <div className="h-10 w-10 animate-spin rounded-full border-4 border-blue-500 border-t-transparent"></div>
         </div>
       ) : profiles && profiles.length > 0 ? (
-        <div className="flex flex-col gap-4">
+        <div className="grid gap-4 grid-cols-1 md:grid-cols-2">
           {profiles.map((profile: ProfileDto) => (
             <div
               key={profile.id}

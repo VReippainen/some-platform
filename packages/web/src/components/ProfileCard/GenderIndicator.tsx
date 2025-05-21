@@ -15,9 +15,9 @@ function GenderIndicator({ gender }: { gender?: string }): ReactElement | null {
       </span>
     );
   }
-  if (gender === 'other') {
+  if (gender != '') {
     return (
-      <span title="Other" className="text-gray-400 text-base">
+      <span title="Other" className="text-purple-400 text-base">
         ⚥
       </span>
     );

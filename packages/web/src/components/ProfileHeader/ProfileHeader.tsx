@@ -1,17 +1,17 @@
 import { PencilIcon } from '@heroicons/react/24/outline';
 import Button from '../Button/Button';
+import type { ProfileDto } from '@social-platform/shared';
+import GenderIndicator from '../ProfileCard/GenderIndicator';
 
 interface ProfileHeaderProps {
-  username: string;
-  bio?: string;
+  profile: ProfileDto;
   isCurrentUser: boolean;
   onEditClick?: () => void;
   className?: string;
 }
 
 function ProfileHeader({
-  username,
-  bio,
+  profile,
   isCurrentUser,
   onEditClick,
   className = '',
@@ -25,16 +25,18 @@ function ProfileHeader({
         <div className="absolute -mt-16 flex">
           <div className="flex">
             <img
-              src={`https://api.dicebear.com/7.x/identicon/svg?seed=${username}`}
-              alt={`${username} avatar`}
+              src={`https://api.dicebear.com/7.x/identicon/svg?seed=${profile.username}`}
+              alt={`${profile.username} avatar`}
               className="h-24 w-24 rounded-full border-4 border-gray-900 bg-gray-800"
             />
           </div>
         </div>
         <div className="mt-6 flex items-center justify-between">
           <div>
-            <h2 className="text-2xl font-bold text-gray-100">{username}</h2>
-            {bio && <p className="mt-2 text-gray-300">{bio}</p>}
+            <h2 className="text-2xl font-bold text-gray-100">
+              {profile.username} {<GenderIndicator gender={profile.gender} />}
+            </h2>
+            {profile.bio && <p className="mt-2 text-gray-300">{profile.bio}</p>}
           </div>
           {isCurrentUser && (
             <div>
