@@ -8,6 +8,7 @@ import type { PostDto } from '@social-platform/shared/src/types/dtos/PostDto';
 import { useQueries } from '@tanstack/react-query';
 import profileService from '../services/profileService';
 import { getAvatarUrl } from '../utils/getAvatarUrl';
+import { Link } from 'react-router-dom';
 
 export function FeedPage(): React.ReactElement {
   const {
@@ -63,13 +64,19 @@ export function FeedPage(): React.ReactElement {
         const username = authorsById[post.profileId].username;
         const avatarUrl = getAvatarUrl(username);
         return (
-          <PostCard
+          <Link
             key={post.id}
-            username={username}
-            avatarUrl={avatarUrl}
-            content={post.content}
-            timestamp={new Date(post.createdAt).toLocaleString()}
-          />
+            to={`/profiles/${post.profileId}`}
+            className="hover:bg-gray-100 rounded transition-colors"
+            style={{ textDecoration: 'none', color: 'inherit' }}
+          >
+            <PostCard
+              username={username}
+              avatarUrl={avatarUrl}
+              content={post.content}
+              timestamp={new Date(post.createdAt).toLocaleString()}
+            />
+          </Link>
         );
       })}
     </div>
