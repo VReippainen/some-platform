@@ -29,21 +29,21 @@ function Layout() {
 
   const navLinks = [
     {
-      path: profile ? `/profile/${profile.id}` : '/profile',
+      path: profile ? `/profiles/${profile.id}` : '/profiles',
       icon: UserIcon,
       text: 'Profile',
     },
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-950 text-gray-100">
       {/* Header */}
-      <header className="bg-white shadow-sm">
+      <header className="bg-gray-900 border-b border-gray-800">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             {/* Logo */}
             <div className="flex-shrink-0">
-              <h1 className="text-xl font-bold text-blue-600">SomePlatform</h1>
+              <h1 className="text-xl font-bold text-blue-400">SomePlatform</h1>
             </div>
 
             {/* Desktop navigation */}
@@ -53,10 +53,10 @@ function Layout() {
                   key={link.path}
                   to={link.path}
                   className={({ isActive }) =>
-                    `inline-flex items-center px-1 pt-1 text-sm font-medium ${
+                    `inline-flex items-center px-1 pt-1 text-sm font-medium transition-colors ${
                       isActive
-                        ? 'border-b-2 border-blue-500 text-gray-900'
-                        : 'border-b-2 border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
+                        ? 'border-b-2 border-blue-400 text-gray-100'
+                        : 'border-b-2 border-transparent text-gray-400 hover:border-gray-700 hover:text-gray-200'
                     }`
                   }
                 >
@@ -69,7 +69,7 @@ function Layout() {
             {/* Right section */}
             <div className="flex items-center">
               {/* Notifications */}
-              <button className="ml-4 rounded-full p-1 text-gray-400 hover:bg-gray-100 hover:text-gray-500">
+              <button className="ml-4 rounded-full p-1 text-gray-400 hover:bg-gray-800 hover:text-gray-200">
                 <BellIcon className="h-6 w-6" />
               </button>
 
@@ -79,7 +79,7 @@ function Layout() {
                   <button
                     onClick={handleLogout}
                     disabled={logout.isPending}
-                    className="ml-4 flex items-center rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 disabled:opacity-70"
+                    className="ml-4 flex items-center rounded-md px-3 py-2 text-sm font-medium text-gray-200 hover:bg-gray-800 disabled:opacity-70"
                   >
                     <ArrowRightCircleIcon className="mr-2 h-5 w-5" />
                     <span>{logout.isPending ? 'Logging out...' : 'Logout'}</span>
@@ -91,7 +91,7 @@ function Layout() {
               <div className="flex md:hidden">
                 <button
                   onClick={toggleMenu}
-                  className="ml-2 inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500"
+                  className="ml-2 inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-800 hover:text-gray-200"
                 >
                   {isMenuOpen ? (
                     <XMarkIcon className="h-6 w-6" />
@@ -106,7 +106,7 @@ function Layout() {
 
         {/* Mobile menu */}
         {isMenuOpen && (
-          <div className="md:hidden">
+          <div className="md:hidden bg-gray-900 border-t border-gray-800">
             <div className="space-y-1 px-2 pb-3 pt-2">
               {navLinks.map((link) => (
                 <NavLink
@@ -114,10 +114,10 @@ function Layout() {
                   to={link.path}
                   onClick={closeMenu}
                   className={({ isActive }) =>
-                    `block rounded-md px-3 py-2 text-base font-medium ${
+                    `block rounded-md px-3 py-2 text-base font-medium transition-colors ${
                       isActive
-                        ? 'bg-blue-50 text-blue-700'
-                        : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
+                        ? 'bg-blue-950 text-blue-400'
+                        : 'text-gray-200 hover:bg-gray-800 hover:text-gray-100'
                     }`
                   }
                 >
@@ -133,7 +133,7 @@ function Layout() {
                   handleLogout();
                 }}
                 disabled={logout.isPending}
-                className="mt-2 flex w-full items-center rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900 disabled:opacity-70"
+                className="mt-2 flex w-full items-center rounded-md px-3 py-2 text-base font-medium text-gray-200 hover:bg-gray-800 hover:text-gray-100 disabled:opacity-70"
               >
                 <ArrowRightCircleIcon className="mr-3 h-5 w-5" />
                 {logout.isPending ? 'Logging out...' : 'Logout'}

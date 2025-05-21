@@ -27,10 +27,10 @@ function Router(): React.ReactElement {
           </ProtectedRoute>
         }
       >
-        <Route index element={<Navigate to="/profile" replace />} />
-        <Route path="profile" element={<Navigate to={`/profile/${profileId ?? ''}`} replace />} />
+        <Route index element={<Navigate to="/profiles" replace />} />
+        <Route path="profiles" element={<Navigate to={`/profiles/${profileId ?? ''}`} replace />} />
         <Route path="profiles/search" element={<ProfileSearchPage />} />
-        <Route path="profile/:id" element={<ProfilePage />} />
+        <Route path="profiles/:id" element={<ProfilePage />} />
       </Route>
 
       {/* 404 route */}

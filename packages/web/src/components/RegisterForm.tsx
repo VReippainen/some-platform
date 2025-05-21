@@ -3,7 +3,7 @@ import type { ChangeEvent, FormEvent } from 'react';
 import { useRegister } from '../hooks/useAuth';
 import { LabeledInput } from './LabeledInput/LabeledInput';
 import { ErrorMessage } from './ErrorMessage';
-import Button from './Button';
+import Button from './Button/Button';
 
 type Gender = 'male' | 'female' | 'other';
 

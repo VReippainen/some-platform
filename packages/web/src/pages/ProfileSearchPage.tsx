@@ -1,18 +1,34 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSearchProfiles, useCurrentProfile } from '../hooks/useProfile';
 import type { ProfileDto } from '@social-platform/shared';
+import ProfileCard from '../components/ProfileCard/ProfileCard';
 
 export function ProfileSearchPage() {
   const [query, setQuery] = useState('');
-  const { data: currentProfile } = useCurrentProfile();
-  const { data: profiles, isLoading } = useSearchProfiles(query);
+  const [debouncedQuery, setDebouncedQuery] = useState('');
+  const { data: currentProfile, isLoading: isCurrentProfileLoading } = useCurrentProfile();
+  const { data: profiles, isLoading: isProfilesLoading } = useSearchProfiles(debouncedQuery);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedQuery(query);
+    }, 300);
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [query]);
 
   if (!currentProfile) {
     // Not authenticated or still loading
     return null;
   }
+
+  const loading = isCurrentProfileLoading || isProfilesLoading;
+
+  const getGender = (profile: ProfileDto) =>
+    ['male', 'female'].includes(profile.gender) ? profile.gender : (profile.genderOther ?? '');
 
   return (
     <div className="max-w-xl mx-auto py-8 px-4">
@@ -27,26 +43,29 @@ export function ProfileSearchPage() {
         }}
         autoFocus
       />
-      {isLoading ? (
+      {loading ? (
         <div className="flex justify-center py-8">
           <div className="h-10 w-10 animate-spin rounded-full border-4 border-blue-500 border-t-transparent"></div>
         </div>
       ) : profiles && profiles.length > 0 ? (
-        <ul className="divide-y rounded bg-white shadow">
+        <div className="flex flex-col gap-4">
           {profiles.map((profile: ProfileDto) => (
-            <li
+            <div
               key={profile.id}
-              className="flex items-center justify-between px-4 py-3 hover:bg-gray-50 cursor-pointer"
+              className="cursor-pointer"
               onClick={() => {
-                void navigate(`/profile/${profile.id}`);
+                void navigate(`/profiles/${profile.id}`);
               }}
             >
-              <span className="font-medium">{profile.username}</span>
-              <span className="text-sm text-gray-500 capitalize">{profile.gender}</span>
-            </li>
+              <ProfileCard
+                username={profile.username}
+                avatarUrl={`https://api.dicebear.com/7.x/identicon/svg?seed=${profile.username}`}
+                gender={getGender(profile)}
+              />
+            </div>
           ))}
-        </ul>
-      ) : query.trim() ? (
+        </div>
+      ) : debouncedQuery.trim() ? (
         <div className="rounded-md bg-gray-50 py-8 text-center">
           <p className="text-gray-500">No profiles found.</p>
         </div>

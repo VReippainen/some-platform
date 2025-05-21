@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import authService from '../services/authService';
 import profileService from '../services/profileService';
-import { useState, useEffect } from 'react';
 
 /**
  * Hook to get the current user
@@ -41,21 +40,10 @@ export const useProfileById = (id: string) => {
  * Hook to search profiles by username
  */
 export const useSearchProfiles = (query: string) => {
-  const [debouncedQuery, setDebouncedQuery] = useState(query);
-
-  useEffect(() => {
-    const handler = setTimeout(() => {
-      setDebouncedQuery(query);
-    }, 300);
-    return () => {
-      clearTimeout(handler);
-    };
-  }, [query]);
-
   const { data, isLoading, error } = useQuery({
-    queryKey: ['searchProfiles', debouncedQuery],
-    queryFn: () => profileService.searchProfiles(debouncedQuery),
-    enabled: !!debouncedQuery,
+    queryKey: ['searchProfiles', query],
+    queryFn: () => profileService.searchProfiles(query),
+    enabled: !!query,
   });
 
   return {

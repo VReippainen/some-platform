@@ -2,7 +2,7 @@ import { useState } from 'react';
 import type { ChangeEvent, FormEvent } from 'react';
 import { useLogin } from '../hooks/useAuth';
 import { LabeledInput } from './LabeledInput/LabeledInput';
-import Button from './Button';
+import Button from './Button/Button';
 import { ErrorMessage } from './ErrorMessage';
 
 function LoginForm() {

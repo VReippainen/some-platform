@@ -24,7 +24,7 @@ export const useLogin = () => {
       // Invalidate any user-related queries
       await queryClient.invalidateQueries({ queryKey: ['currentUser'] });
       // Navigate to profile page
-      void navigate(`/profile/${user.id}`);
+      void navigate(`/profiles/${user.id}`);
     },
   });
 };
@@ -47,7 +47,7 @@ export const useRegister = () => {
       // Invalidate any user-related queries
       await queryClient.invalidateQueries({ queryKey: ['currentProfile'] });
       // Navigate to profile page
-      void navigate(`/profile/${profile.id}`);
+      void navigate(`/profiles/${profile.id}`);
     },
   });
 };
