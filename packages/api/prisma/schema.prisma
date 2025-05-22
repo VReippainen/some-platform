@@ -21,16 +21,19 @@ model User {
 }
 
 model Profile {
-  id          String    @id @default(uuid())
-  userId      String
-  username    String    @unique
-  bio         String?
-  gender      Gender
-  genderOther String?   @map("gender_other")
-  createdAt   DateTime  @default(now()) @map("created_at")
-  updatedAt   DateTime? @map("updated_at")
-  user        User      @relation(fields: [userId], references: [id])
-  posts       Post[]
+  id            String    @id @default(uuid())
+  userId        String
+  username      String    @unique
+  bio           String?
+  gender        Gender
+  genderOther   String?   @map("gender_other")
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime? @map("updated_at")
+  user          User      @relation(fields: [userId], references: [id])
+  posts         Post[]
+  profileImage  Image?    @relation("ProfileImage", fields: [profileImageId], references: [id])
+  profileImageId String?  @unique @map("profile_image_id")
+  albums        Album[]
 }
 
 enum Gender {
@@ -46,4 +49,32 @@ model Post {
   createdAt     DateTime  @default(now()) @map("created_at")
   updatedAt     DateTime? @map("updated_at")
   profile       Profile   @relation(fields: [profileId], references: [id])
+  images        Image[]
+}
+
+model Image {
+  id            String    @id @default(uuid())
+  blobUrl       String    @map("blob_url")
+  blobName      String    @map("blob_name")
+  contentType   String    @map("content_type")
+  size          Int
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime? @map("updated_at")
+  profile       Profile?  @relation("ProfileImage")
+  profileId     String?   @map("profile_id")
+  post          Post?     @relation(fields: [postId], references: [id])
+  postId        String?   @map("post_id")
+  album         Album?    @relation(fields: [albumId], references: [id])
+  albumId       String?   @map("album_id")
+}
+
+model Album {
+  id            String    @id @default(uuid())
+  name          String
+  description   String?
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime? @map("updated_at")
+  profile       Profile   @relation(fields: [profileId], references: [id])
+  profileId     String    @map("profile_id")
+  images        Image[]
 }
