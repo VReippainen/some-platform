@@ -19,6 +19,10 @@ interface Config {
     expiresIn: string | number;
   };
   corsOrigin: string | string[];
+  azureStorage: {
+    connectionString: string;
+    containerName: string;
+  };
 }
 
 const config: Config = {
@@ -36,6 +40,10 @@ const config: Config = {
     expiresIn: process.env.JWT_EXPIRES_IN || '7d',
   },
   corsOrigin:['http://localhost:3000', 'http://localhost:4000', 'http://localhost:5173'],
+  azureStorage: {
+    connectionString: process.env.AZURE_STORAGE_CONNECTION_STRING || '',
+    containerName: process.env.AZURE_STORAGE_CONTAINER_NAME || '',
+  },
 };
 
 export default config; 
