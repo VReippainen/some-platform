@@ -10,6 +10,7 @@ import profileRoutes from './routes/profileRoutes';
 import postRoutes from './routes/postRoutes';
 import feedRoutes from './routes/feedRoutes';
 import type { ErrorRequestHandler } from 'express';
+import imageRoutes from './routes/imageRoutes';
 
 async function startServer() {
   // Create Express application
@@ -50,6 +51,7 @@ async function startServer() {
   router.use('/profiles', profileRoutes);
   router.use('/posts', postRoutes);
   router.use('/feed', feedRoutes);
+  router.use('/images', imageRoutes);
   app.use('/', router);
 
   // Add a health check endpoint

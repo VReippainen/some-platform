@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 
 export class AppError extends Error {
   statusCode: number;
@@ -16,6 +16,7 @@ export const errorHandler = (
   err: Error | AppError,
   _0: Request,
   res: Response,
+  next: NextFunction
 ): void => {
   if (err instanceof AppError) {
     res.status(err.statusCode).json({
@@ -48,4 +49,7 @@ export const errorHandler = (
     status: 'error',
     message: 'Something went wrong!'
   });
+
+  next();
+
 }; 

@@ -67,4 +67,26 @@ router.get('/:id', async (req, res, next) => {
   }
 });
 
+// Placeholder: Get all albums for a profile
+router.get('/:profileId/albums', (req, res) => {
+  /*
+    #swagger.tags = ['Albums']
+    #swagger.path = '/profiles/{profileId}/albums'
+    #swagger.summary = 'Get all albums for a profile'
+  */
+  // TODO: Implement fetch albums for profile
+  res.status(501).json({ message: 'Not implemented' });
+});
+
+// Placeholder: Create a new album for a profile
+router.post('/:profileId/albums', authenticate, (req, res) => {
+  /*
+    #swagger.tags = ['Albums']
+    #swagger.path = '/profiles/{profileId}/albums'
+    #swagger.summary = 'Create a new album for a profile'
+  */
+  // TODO: Implement album creation
+  res.status(501).json({ message: 'Not implemented' });
+});
+
 export default router; 

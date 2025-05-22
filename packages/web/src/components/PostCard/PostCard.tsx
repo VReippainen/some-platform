@@ -12,7 +12,7 @@ function PostCard({
 }: PostCardProps) {
   return (
     <Card className={`flex flex-col gap-3 ${className}`}>
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3 px-4">
         <img
           src={avatarUrl}
           alt={username + ' avatar'}
@@ -23,10 +23,8 @@ function PostCard({
           <div className="text-xs text-gray-400">{timestamp}</div>
         </div>
       </div>
-      <div className="text-gray-100 whitespace-pre-line">{content}</div>
-      {imageUrl && (
-        <img src={imageUrl} alt="Post media" className="rounded-md max-h-60 w-full object-cover" />
-      )}
+      <div className="text-gray-100 whitespace-pre-line px-4">{content}</div>
+      {imageUrl && <img src={imageUrl} alt="Post media" className="w-full object-cover" />}
       {actions && <div className="flex gap-2 mt-2">{actions}</div>}
     </Card>
   );

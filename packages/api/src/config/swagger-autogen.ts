@@ -40,6 +40,10 @@ const doc = {
       name: 'Feed',
       description: 'Feed operations'
     },
+    {
+      name: 'Images',
+      description: 'Image operations'
+    },
    /* {
       name: 'Posts',
       description: 'Post operations'
@@ -88,6 +92,7 @@ const routeFiles = [
   path.resolve(__dirname, '../routes/profileRoutes.ts'),
   path.resolve(__dirname, '../routes/postRoutes.ts'),
   path.resolve(__dirname, '../routes/feedRoutes.ts'),
+  path.resolve(__dirname, '../routes/imageRoutes.ts'),
   /*path.resolve(__dirname, '../routes/postRoutes.ts'),
   path.resolve(__dirname, '../routes/commentRoutes.ts'),
   path.resolve(__dirname, '../routes/messageRoutes.ts'),

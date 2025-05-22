@@ -7,7 +7,7 @@ import { ProfileResponse } from './types/responses/ProfileResponse';
 import { ProfileDto } from './types/dtos/ProfileDto';
 import { UpdateProfileDto } from './types/dtos/ProfileDto';
 import { PostDto } from './types/dtos/PostDto';
-
+import { ImageDto } from './types/dtos/ImageDto';
 
 export {
   RegisterUserDto,
@@ -20,4 +20,5 @@ export {
   TokenResponse,
   ProfileDto,
   PostDto,
+  ImageDto,
 };

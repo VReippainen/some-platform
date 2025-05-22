@@ -93,5 +93,16 @@ router.delete('/:id', authenticate, async (req, res, next) => {
   }
 });
 
+// Placeholder: Get all images for a post
+router.get('/:postId/images', (req, res) => {
+  /*
+    #swagger.tags = ['Posts']
+    #swagger.path = '/posts/{postId}/images'
+    #swagger.summary = 'Get all images for a post'
+  */
+  // TODO: Implement fetch images for post
+  res.status(501).json({ message: 'Not implemented' });
+});
+
 
 export default router; 

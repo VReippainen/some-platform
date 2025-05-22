@@ -24,7 +24,7 @@ export function UserPostsSection({ profileId, profile }: UserPostsSectionProps) 
   }
 
   return (
-    <section className="mt-8">
+    <section className="mt-8 max-w-2xl">
       <h2 className="text-xl font-bold mb-4 text-left">Posts</h2>
       <div className="flex flex-col gap-4">
         {posts.map((post) => (
@@ -33,6 +33,7 @@ export function UserPostsSection({ profileId, profile }: UserPostsSectionProps) 
             username={profile.username}
             avatarUrl={getAvatarUrl(profile.username)}
             content={post.content}
+            imageUrl={post.images?.[0]?.url}
             timestamp={new Date(post.createdAt).toLocaleString()}
           />
         ))}
