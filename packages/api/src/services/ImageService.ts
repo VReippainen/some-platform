@@ -81,6 +81,12 @@ class ImageService {
     await BlobService.deleteBlob(image.blobName);
     await ImageModel.delete(imageId);
   }
+
+  static async getImagesByIds(imageIds: string[]): Promise<ImageDto[]> {
+    const images = await ImageModel.findByIds(imageIds);
+    return Promise.all(images.map(this.addSignedUrlToImage));
+  }
+
 /*
   static async updateImage(imageId: string, updates: UpdateImageOptions): Promise<ImageDto | null> {
     throw new Error('Not implemented');

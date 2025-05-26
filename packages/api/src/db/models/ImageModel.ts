@@ -46,6 +46,11 @@ class ImageModel {
     return images.map(this.toImage);
   }
 
+  async findByIds(ids: string[]): Promise<ImageDto[]> {
+    const images = await prisma.image.findMany({ where: { id: { in: ids } } });
+    return images.map(this.toImage);
+  }
+
   async create(data: CreateImageDto): Promise<ImageDto> {
     const image = await prisma.image.create({
       data: {

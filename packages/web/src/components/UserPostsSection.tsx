@@ -29,11 +29,12 @@ export function UserPostsSection({ profileId, profile }: UserPostsSectionProps) 
       <div className="flex flex-col gap-4">
         {posts.map((post) => (
           <PostCard
+            imageIds={post.imageIds}
+            postId={post.id}
             key={post.id}
             username={profile.username}
             avatarUrl={getAvatarUrl(profile.username)}
             content={post.content}
-            imageUrl={post.images?.[0]?.url}
             timestamp={new Date(post.createdAt).toLocaleString()}
           />
         ))}

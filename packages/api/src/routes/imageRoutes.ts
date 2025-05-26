@@ -34,6 +34,31 @@ router.post('/', upload.single('image'), authenticate, async (req, res, next) =>
   }
 });
 
+// Get multiple images by IDs
+router.get('/ids', authenticate, async (req, res, next) => {
+  /*
+    #swagger.tags = ['Images']
+    #swagger.path = '/images/ids'
+    #swagger.summary = 'Get multiple images by IDs (comma-separated in query param)'
+  */
+  try {
+    const idsParam = req.query.ids;
+    if (!idsParam || typeof idsParam !== 'string') {
+      res.status(400).json({ message: 'No image IDs provided' });
+      return;
+    }
+    const ids = idsParam.split(',').map(id => id.trim()).filter(Boolean);
+    if (ids.length === 0) {
+      res.status(400).json({ message: 'No valid image IDs provided' });
+      return;
+    }
+    const images = await ImageService.getImagesByIds(ids);
+    res.status(200).json(images);
+  } catch (error) {
+    next(error);
+  }
+});
+
 // Get image by ID
 router.get('/:imageId', authenticate, async (req, res, next) => {
   /*
@@ -111,5 +136,7 @@ router.get('/album/:albumId', authenticate, async function (req, res, next) {
     next(error);
   }
 });
+
+
 
 export default router; 

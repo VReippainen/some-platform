@@ -48,7 +48,7 @@ function Layout() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-950 text-gray-100">
+    <div className="min-h-screen bg-black text-gray-100">
       {/* Header */}
       <header className="bg-gray-900 border-b border-gray-800">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -157,7 +157,7 @@ function Layout() {
 
       {/* Main content */}
       <main className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
-        <div className="px-4 sm:px-0">
+        <div className="px-0 sm:px-0">
           <Outlet />
         </div>
       </main>

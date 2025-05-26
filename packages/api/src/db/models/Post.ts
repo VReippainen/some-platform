@@ -1,7 +1,6 @@
 import { PrismaClient, Post as DbPost } from '@prisma/client';
 import { PostDto } from '@social-platform/shared';
 import type { Image } from '@prisma/client';
-import ImageModel from './ImageModel';
 const prisma = new PrismaClient();
 
 
@@ -13,7 +12,7 @@ class PostModel {
       content: post.content,
       createdAt: post.createdAt.toISOString(),
       updatedAt: post.updatedAt?.toISOString(),
-      images: post.images?.map(ImageModel.toImage) || [],
+      imageIds: post.images?.map(p => p.id) || [],
     };
   }
 
@@ -30,7 +29,6 @@ class PostModel {
       where: { profileId },
       include: { images: true },
     });
-    console.log('posts', posts);
     return posts.map(this.toPost);
   }
 

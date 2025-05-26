@@ -59,7 +59,7 @@ export function FeedPage(): React.ReactElement {
   }
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 max-w-2xl mx-auto">
       {feed.map((post: PostDto) => {
         const username = authorsById[post.profileId].username;
         const avatarUrl = getAvatarUrl(username);
@@ -71,6 +71,8 @@ export function FeedPage(): React.ReactElement {
             style={{ textDecoration: 'none', color: 'inherit' }}
           >
             <PostCard
+              postId={post.id}
+              imageIds={post.imageIds}
               username={username}
               avatarUrl={avatarUrl}
               content={post.content}

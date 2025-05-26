@@ -1,2 +1,3 @@
 export * from './useFeed';
+export * from './useImages';
 // ... existing code ...

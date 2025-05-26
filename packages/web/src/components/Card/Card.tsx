@@ -7,7 +7,7 @@ export type CardProps = {
 
 function Card({ children, className = '' }: CardProps) {
   return (
-    <div className={`w-full bg-gray-800 rounded-lg shadow-md py-4 ${className}`} role="region">
+    <div className={`w-full bg-black py-4 border-b-gray-500 border-b-1 ${className}`} role="region">
       {children}
     </div>
   );
