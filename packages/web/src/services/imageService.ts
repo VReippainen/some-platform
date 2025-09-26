@@ -1,5 +1,6 @@
 import { get } from './apiClient';
 import type { ImageDto } from '@social-platform/shared/src/types/dtos/ImageDto';
+import apiClient from './apiClient';
 
 const imageService = {
   /**
@@ -44,6 +45,35 @@ const imageService = {
    */
   getImagesByAlbumId: async (albumId: string): Promise<ImageDto[]> => {
     return await get<ImageDto[]>(`/images/album/${albumId}`);
+  },
+
+  /**
+   * Upload an image file and link to post, album, or profile
+   */
+  uploadImage: async ({
+    file,
+    postId,
+    albumId,
+    profileId,
+    makeProfilePicture,
+  }: {
+    file: File;
+    postId?: string;
+    albumId?: string;
+    profileId?: string;
+    makeProfilePicture?: boolean;
+  }): Promise<ImageDto> => {
+    const formData = new FormData();
+    formData.append('image', file);
+    if (postId) formData.append('postId', postId);
+    if (albumId) formData.append('albumId', albumId);
+    if (profileId) formData.append('profileId', profileId);
+    if (typeof makeProfilePicture !== 'undefined')
+      formData.append('makeProfilePicture', String(makeProfilePicture));
+    const response = await apiClient.post<ImageDto>('/images', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
+    return response.data;
   },
 };
 

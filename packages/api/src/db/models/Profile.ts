@@ -1,10 +1,12 @@
 import { PrismaClient, Profile } from '@prisma/client';
 const prisma = new PrismaClient();
 import { RegisterUserDto, UpdateProfileDto, ProfileDto, UserDto} from '@social-platform/shared';
+import { connect } from 'http2';
 
 class ProfileModel {
 
   private toProfile(profile: Profile): ProfileDto {
+    console.log('Converting profile to ProfileDto:', profile);
     return {
       id: profile.id,
       username: profile.username,
@@ -13,22 +15,23 @@ class ProfileModel {
       genderOther: profile.genderOther,
       createdAt: profile.createdAt,
       updatedAt: profile.updatedAt,
+      profileImageId: profile.profileImageId || null,
     }
   }
   // Find a user by ID
   async findById(id: string): Promise<ProfileDto | null> {
-    const profile = await prisma.profile.findUnique({ where: { id } });
+    const profile = await prisma.profile.findUnique({ where: { id }, include: { profileImage: true} });
     return profile ? this.toProfile(profile) : null;
   }
 
   // Find a user by username
   async findByUsername(username: string): Promise<ProfileDto | null> {
-    const profile = await prisma.profile.findUnique({ where: { username } });
+    const profile = await prisma.profile.findUnique({ where: { username } , include: { profileImage: true } });
     return profile ? this.toProfile(profile) : null;
   }
 
   async findByUserId(userId: string): Promise<ProfileDto[] | null> {
-    const profiles = await prisma.profile.findMany({ where: { userId } });
+    const profiles = await prisma.profile.findMany({ where: { userId },include: { profileImage: true } });
     return profiles.map(this.toProfile);
   }
 
@@ -40,10 +43,16 @@ class ProfileModel {
         bio: profileData.bio ?? null,
         gender: profileData.gender,
         genderOther: profileData.genderOther ?? null,
+        profileImageId: profileData.profileImageId ?? null,
         user: {
           connect: {
             id: user.id,
           },
+        profileImage: {
+          connect: { 
+            icon: profileData.profileImageId ? { id: profileData.profileImageId } : undefined,
+          }
+        }
         },
       },
     });
@@ -57,7 +66,9 @@ class ProfileModel {
       data: {
         bio: profileData.bio,
         genderOther: profileData.genderOther,
+        profileImageId: profileData.profileImageId ?? null,
       },
+      include: { profileImage: true },
     });
     return profile ? this.toProfile(profile) : null;
   }
@@ -73,6 +84,7 @@ class ProfileModel {
         ],
       },
       take: limit,
+      include: { profileImage: true },
     });
     return profiles.map(this.toProfile);
   }

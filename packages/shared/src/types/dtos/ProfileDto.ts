@@ -1,6 +1,7 @@
 export interface UpdateProfileDto {
   bio?: string;
   genderOther?: string;
+  profileImageId?: string;
 }
 
 export interface ProfileDto {
@@ -11,4 +12,5 @@ export interface ProfileDto {
   genderOther: string | null;
   createdAt: Date;
   updatedAt: Date | null;
+  profileImageId: string | null;
 }

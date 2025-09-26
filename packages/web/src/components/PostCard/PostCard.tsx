@@ -1,24 +1,6 @@
-import { useImages } from '../../hooks';
 import Card from '../Card/Card';
 import type { PostCardProps } from './types';
-
-function ImageLoader({ imageIds }: { imageIds?: string[] }) {
-  const { data: images, isLoading } = useImages(imageIds);
-
-  if (isLoading) {
-    return <div className="w-full aspect-square bg-gray-700 animate-pulse" />;
-  }
-  if (images?.length === 0) {
-    return null;
-  }
-  return (
-    <div className="w-full">
-      {(images ?? []).map((image) => (
-        <img key={image.id} src={image.url} alt="Post media" className="w-full object-cover" />
-      ))}
-    </div>
-  );
-}
+import { Image } from '../Image/Image';
 
 function PostCard({
   username,
@@ -42,7 +24,7 @@ function PostCard({
           <div className="text-xs text-gray-400">{timestamp}</div>
         </div>
       </div>
-      {imageIds && <ImageLoader imageIds={imageIds} />}
+      {imageIds && <Image imageIds={imageIds} />}
       <div className="text-gray-100 whitespace-pre-line px-4 text-sm">{content}</div>
       {actions && <div className="flex gap-2 mt-2">{actions}</div>}
     </Card>

@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import imageService from '../services/imageService';
 import type { ImageDto } from '@social-platform/shared/src/types/dtos/ImageDto';
 
@@ -31,5 +31,24 @@ export function useImagesByAlbumId(albumId: string) {
     queryKey: ['images', 'album', albumId],
     queryFn: () => imageService.getImagesByAlbumId(albumId),
     enabled: !!albumId,
+  });
+}
+
+export function useUploadImage() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: imageService.uploadImage,
+    onSuccess: (data) => {
+      // Invalidate image queries if needed
+      if (data.profileId) {
+        void queryClient.invalidateQueries({ queryKey: ['images', 'profile', data.profileId] });
+      }
+      if (data.postId) {
+        void queryClient.invalidateQueries({ queryKey: ['images', 'post', data.postId] });
+      }
+      if (data.albumId) {
+        void queryClient.invalidateQueries({ queryKey: ['images', 'album', data.albumId] });
+      }
+    },
   });
 }

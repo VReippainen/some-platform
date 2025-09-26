@@ -2,8 +2,8 @@ import { PencilIcon } from '@heroicons/react/24/outline';
 import Button from '../Button/Button';
 import type { ProfileDto } from '@social-platform/shared';
 import GenderIndicator from '../ProfileCard/GenderIndicator';
+import { Avatar } from '../Image/Avatar';
 import { getAvatarUrl } from '../../utils/getAvatarUrl';
-
 interface ProfileHeaderProps {
   profile: ProfileDto;
   isCurrentUser: boolean;
@@ -17,6 +17,7 @@ function ProfileHeader({
   onEditClick,
   className = '',
 }: ProfileHeaderProps) {
+  console.log('Rendering ProfileHeader for:', profile);
   return (
     <div
       className={`mb-6 overflow-hidden rounded-lg bg-gray-900 border border-gray-800 ${className}`}
@@ -25,11 +26,15 @@ function ProfileHeader({
       <div className="relative px-4 py-5 sm:px-6">
         <div className="absolute -mt-16 flex">
           <div className="flex">
-            <img
-              src={getAvatarUrl(profile.username)}
-              alt={`${profile.username} avatar`}
-              className="h-24 w-24 rounded-full border-4 border-gray-900 bg-gray-800"
-            />
+            {profile.profileImageId ? (
+              <Avatar username={profile.username} profileImageId={profile.profileImageId} />
+            ) : (
+              <img
+                src={getAvatarUrl(profile.username)}
+                alt={`${profile.username} avatar`}
+                className="h-24 w-24 rounded-full border-4 border-gray-900 bg-gray-800"
+              />
+            )}
           </div>
         </div>
         <div className="mt-6 flex items-center justify-between">
